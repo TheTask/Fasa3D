@@ -62,8 +62,8 @@ public class Graphics
    
    public void putPixel( int x,int y,Color c )
    {
-      pw.setColor( x,y,c );     //accessing pixel by coord;
-      gc.drawImage( img,0,0 ); //draw layer onto pixel buffer
+      this.pw.setColor( x,y,c );     //accessing pixel by coord;
+      this.gc.drawImage( img,0,0 ); //draw layer onto pixel buffer
    }
    
    public void drawLine( int x1,int y1,int x2,int y2,Color c )
@@ -105,7 +105,7 @@ public class Graphics
       else  //y dominant
       {
          int xstart;
-         m = (float)dx / (float)dy; //slope
+         m = (float)dx / (float)dy; //slope is inverted when looping through y
       
          if( dy > 0 ) //sorting through starting variables
          {
@@ -143,9 +143,9 @@ public class Graphics
       int biggerX = v1.getX() < v2.getX() ? v2.getX() : v1.getX();
       int biggerY = v1.getY() < v2.getY() ? v2.getY() : v1.getY();
       
-      for( int i = 0; i < biggerY - smallerY; i++ )
+      for( ; smallerY < biggerY; smallerY++ )
       {
-         drawLine( smallerX,smallerY + i,biggerX,smallerY + i,c );
+         drawLine( smallerX,smallerY,biggerX,smallerY,c );
       }
    } 
 }

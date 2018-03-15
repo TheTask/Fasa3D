@@ -17,10 +17,11 @@ public class Fasa3D extends Application
       Graphics gfx = new Graphics();    
       gfx.createWindow( primaryStage ); 
       
-      
+
       Vec2 v1 = new Vec2( 100,100 );
-      Vec2 v2 = new Vec2( 50,50 );
+      Vec2 v2 = new Vec2( 300,300 );
       
       gfx.drawRectangle( v1,v2,Colors.RED );  
+      gfx.drawLine( 0,0,600,600,Colors.BLACK );
    }
 }
