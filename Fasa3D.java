@@ -15,9 +15,9 @@ public class Fasa3D extends Application
    public void start( Stage primaryStage ) throws Exception
    {   
       Graphics gfx = new Graphics();    
-      gfx.createWindow( primaryStage );
+      gfx.createWindow( primaryStage ); 
       
-      
-      gfx.putPixel( 1,1,Colors.BLACK );      
+      gfx.drawLine( 0,0,700,599,Colors.BLACK );  
+      gfx.drawLine( 0,599,599,0,Colors.BLACK );  
    }
 }
