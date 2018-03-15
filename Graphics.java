@@ -28,10 +28,10 @@ public class Graphics
    
    public Graphics()
    {
-      canvas = new Canvas( SCREEN_WIDTH,SCREEN_HEIGHT );
-      gc = canvas.getGraphicsContext2D();
-      img = new WritableImage( SCREEN_WIDTH,SCREEN_HEIGHT ); //layer
-      pw  = img.getPixelWriter();
+      this.canvas = new Canvas( SCREEN_WIDTH,SCREEN_HEIGHT );
+      this.gc = canvas.getGraphicsContext2D();
+      this.img = new WritableImage( SCREEN_WIDTH,SCREEN_HEIGHT ); //layer
+      this.pw  = img.getPixelWriter();
    }
    
    public void createWindow( Stage primaryStage )
@@ -51,7 +51,7 @@ public class Graphics
       window.setTitle( "Fasa3D" );
 
       GridPane grid = new GridPane();
-      grid.getChildren().addAll( canvas ); //put pixel buffer into layout
+      grid.getChildren().addAll( this.canvas ); //put pixel buffer into layout
       
 
       Scene scene = new Scene( grid,SCREEN_WIDTH,SCREEN_HEIGHT );
@@ -130,4 +130,22 @@ public class Graphics
          }
       }    
    }
+   
+   public void drawLine( Vec2 v1,Vec2 v2,Color c ) //overloaded to work with vec2
+   {
+      drawLine( v1.getX(),v1.getY(),v2.getX(),v2.getY(),c );
+   }
+   
+   public void drawRectangle( Vec2 v1,Vec2 v2,Color c )
+   {
+      int smallerX = v1.getX() < v2.getX() ? v1.getX() : v2.getX();
+      int smallerY = v1.getY() < v2.getY() ? v1.getY() : v2.getY();
+      int biggerX = v1.getX() < v2.getX() ? v2.getX() : v1.getX();
+      int biggerY = v1.getY() < v2.getY() ? v2.getY() : v1.getY();
+      
+      for( int i = 0; i < biggerY - smallerY; i++ )
+      {
+         drawLine( smallerX,smallerY + i,biggerX,smallerY + i,c );
+      }
+   } 
 }
