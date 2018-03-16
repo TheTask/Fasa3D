@@ -35,7 +35,10 @@ public class Fasa3D extends Application
       m3.displayMatrix();
       System.out.println( m3.determinant() );
       
-      gfx.drawRectangle( v1,v2,Colors.RED );  
+      Vec2 a = new Vec2( 100,100 );
+      Vec2 b = new Vec2( 590,590 );
+      gfx.drawRectangle( a,b,Colors.BLACK );  
       
+      gfx.present();
    }
 }

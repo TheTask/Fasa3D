@@ -60,9 +60,13 @@ public class Graphics
    }
    
    
-   public void putPixel( int x,int y,Color c )
+   private void putPixel( int x,int y,Color c )
    {
       this.pw.setColor( x,y,c );     //accessing pixel by coord;
+   }
+   
+   public void present()
+   {
       this.gc.drawImage( img,0,0 ); //draw layer onto pixel buffer
    }
    
