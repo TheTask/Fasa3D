@@ -34,6 +34,7 @@ public class Fasa3D extends Application
       System.out.println( m2.determinant() );
       m3.displayMatrix();
       System.out.println( m3.determinant() );
+      m3.transpose().displayMatrix();
       
       Vec2 a = new Vec2( 100,100 );
       Vec2 b = new Vec2( 590,590 );

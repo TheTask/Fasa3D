@@ -62,7 +62,7 @@ public class Graphics
    
    private void putPixel( int x,int y,Color c )
    {
-      this.pw.setColor( x,y,c );     //accessing pixel by coord;
+      this.pw.setColor( (int)x,(int)y,c );     //accessing pixel by coord;
    }
    
    public void present()
@@ -137,20 +137,20 @@ public class Graphics
    
    public void drawLine( Vec2 v1,Vec2 v2,Color c ) //overloaded to work with vec2
    {
-      drawLine( v1.getX(),v1.getY(),v2.getX(),v2.getY(),c );
+      drawLine( (int)v1.getX(),(int)v1.getY(),(int)v2.getX(),(int)v2.getY(),c );
    }
    
    public void drawRectangle( Vec2 v1,Vec2 v2,Color c )
    {
       //sort vector coordinates so we loop from smaller to larger values
-      int smallerX = v1.getX() < v2.getX() ? v1.getX() : v2.getX();
-      int smallerY = v1.getY() < v2.getY() ? v1.getY() : v2.getY();
-      int biggerX = v1.getX() < v2.getX() ? v2.getX() : v1.getX();
-      int biggerY = v1.getY() < v2.getY() ? v2.getY() : v1.getY();
+      double smallerX = v1.getX() < v2.getX() ? v1.getX() : v2.getX();
+      double smallerY = v1.getY() < v2.getY() ? v1.getY() : v2.getY();
+      double biggerX = v1.getX() < v2.getX() ? v2.getX() : v1.getX();
+      double biggerY = v1.getY() < v2.getY() ? v2.getY() : v1.getY();
       
       for( ; smallerY <= biggerY; smallerY++ )
       {
-         drawLine( smallerX,smallerY,biggerX,smallerY,c );
+         drawLine( (int)smallerX,(int)smallerY,(int)biggerX,(int)smallerY,c );
       }
    } 
 }
