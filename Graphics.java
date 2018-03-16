@@ -138,12 +138,13 @@ public class Graphics
    
    public void drawRectangle( Vec2 v1,Vec2 v2,Color c )
    {
+      //sort vector coordinates so we loop from smaller to larger values
       int smallerX = v1.getX() < v2.getX() ? v1.getX() : v2.getX();
       int smallerY = v1.getY() < v2.getY() ? v1.getY() : v2.getY();
       int biggerX = v1.getX() < v2.getX() ? v2.getX() : v1.getX();
       int biggerY = v1.getY() < v2.getY() ? v2.getY() : v1.getY();
       
-      for( ; smallerY < biggerY; smallerY++ )
+      for( ; smallerY <= biggerY; smallerY++ )
       {
          drawLine( smallerX,smallerY,biggerX,smallerY,c );
       }
