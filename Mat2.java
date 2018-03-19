@@ -21,6 +21,12 @@ public class Mat2
       this.y2 = v2.getY();
    }
    
+   public static Mat2 Identity()
+   {
+      Mat2 result = new Mat2( 1,0,0,1 ); 
+      return result;
+   }
+   
    public void displayMatrix()
    {
       System.out.println( "| " + this.x1 + " " + this.x2 + " |" );
@@ -70,6 +76,20 @@ public class Mat2
    {
       Mat2 result = new Mat2( this.x1,this.x2,this.y1,this.y2 );
       return result;
+   }
+   
+   public Mat2 inverse() throws Exception
+   {
+      double det = this.determinant();
+      if( det != 0 )
+      {
+         return this.adjoint().scale( 1/det );
+      }
+      else
+      {
+         throw new Exception( "Matrix not invertable!" );
+         
+      }
    }
       
 }

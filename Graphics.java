@@ -13,6 +13,8 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.application.Platform;
 
+import java.util.ArrayList;
+
 
 public class Graphics
 {
@@ -98,12 +100,16 @@ public class Graphics
          }
          
          int clippedStart = start >= 0 ? start : 0;  //clipping if we go outside of the screen
-         int clippedEnd = end < SCREEN_WIDTH ? end : SCREEN_WIDTH - 1;
+         int clippedEnd = end <= SCREEN_WIDTH ? end : SCREEN_WIDTH;
 
          for( int i = clippedStart; i < clippedEnd; i++ )
          {
             currentOffset += m ; //slope incremental
-            putPixel( i,ystart + (int)currentOffset,c );
+            
+            if( ystart + (int)currentOffset > 0 && ystart + (int)currentOffset < SCREEN_HEIGHT )
+            {
+               putPixel( i,ystart + (int)currentOffset,c );
+            }
          }
       }
       else  //y dominant
@@ -123,14 +129,19 @@ public class Graphics
             end = y1;
             xstart = x2;
          }
+         
       
          int clippedStart = start >= 0 ? start : 0; //clipping
-         int clippedEnd = end < SCREEN_HEIGHT ? end : SCREEN_HEIGHT - 1;
+         int clippedEnd = end <= SCREEN_HEIGHT ? end : SCREEN_HEIGHT;
          
          for( int i = clippedStart; i < clippedEnd; i++ )
          {
             currentOffset += m ;
-            putPixel( xstart + (int)currentOffset,i,c );
+            
+            if(  xstart + (int)currentOffset > 0 &&  xstart + (int)currentOffset < SCREEN_WIDTH )
+            {
+               putPixel( xstart + (int)currentOffset,i,c );
+            }
          }
       }    
    }
@@ -153,4 +164,13 @@ public class Graphics
          drawLine( (int)smallerX,(int)smallerY,(int)biggerX,(int)smallerY,c );
       }
    } 
+   
+   public void drawShape( ArrayList< Vec2 > points,Color c )
+   {
+      for( int i = 0; i < points.size() - 1; i++ )
+      {
+         drawLine( points.get( i ),points.get( i + 1 ),c );
+      }
+      drawLine( points.get( points.size() - 1 ),points.get( 0 ),c ); //last to first
+   }
 }
