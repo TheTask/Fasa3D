@@ -135,18 +135,18 @@ public class Graphics
    
    public void drawLine( Vec2 v1,Vec2 v2,Color c ) //overloaded to work with vec2
    {
-      drawLine( (int)v1.getX(),(int)v1.getY(),(int)v2.getX(),(int)v2.getY(),c );
+      drawLine( (int)v1.x,(int)v1.y,(int)v2.x,(int)v2.y,c );
    }
    
    public void drawRectangle( Vec2 v1,Vec2 v2,Color c )
    {
       //sort vector coordinates so we loop from smaller to larger values
-      double smallerX = v1.getX() < v2.getX() ? v1.getX() : v2.getX();
-      double smallerY = v1.getY() < v2.getY() ? v1.getY() : v2.getY();
-      double biggerX = v1.getX() < v2.getX() ? v2.getX() : v1.getX();
-      double biggerY = v1.getY() < v2.getY() ? v2.getY() : v1.getY();
+      double smallerX = v1.x < v2.x ? v1.x : v2.x;
+      double smallerY = v1.y < v2.y ? v1.y : v2.y;
+      double biggerX  = v1.x < v2.x ? v2.x : v1.x;
+      double biggerY  = v1.y < v2.y ? v2.y : v1.y;
       
-      for( ; smallerY <= biggerY; smallerY++ )
+      for( ; smallerY <= biggerY; smallerY++ ) 
       {
          drawLine( (int)smallerX,(int)smallerY,(int)biggerX,(int)smallerY,c );
       }
@@ -159,5 +159,76 @@ public class Graphics
          drawLine( points.get( i ),points.get( i + 1 ),c ); //draws line between 2 consecutive points
       }
       drawLine( points.get( points.size() - 1 ),points.get( 0 ),c ); //last to first
+   }
+   
+   public void drawFlatTopTriangle( Vec2 v1,Vec2 v2,Vec2 v3,Color c ) //mark as private after done testing
+   {
+      Vec2 topLeft;
+      Vec2 topRight;
+      Vec2 bottom;
+      
+      double v1x = v1.x;
+      double v1y = v1.y;
+      double v2x = v2.x;
+      double v2y = v2.y;
+      double v3x = v3.x;
+      double v3y = v3.y;
+      
+      
+      if( v1y > v2y && v1y > v3y ) //naive sorting approach
+      {
+         bottom = new Vec2( v1x,v1y );
+         
+         if( v2x > v3x )
+         {
+            topRight = new Vec2( v2x,v2y );
+            topLeft = new Vec2( v3x,v3y );
+         }
+         else
+         {
+            topRight = new Vec2( v3x,v3y );
+            topLeft = new Vec2( v2x,v2y );
+         }
+      }
+      else if( v2y > v1y && v2y > v3y )
+      {
+         bottom = new Vec2( v2x,v2y );
+         
+         if( v1x > v3x )
+         {
+            topRight = new Vec2( v1x,v1y );
+            topLeft = new Vec2( v3x,v3y );
+         }
+         else
+         {
+            topRight = new Vec2( v3x,v3y );
+            topLeft = new Vec2( v1x,v1y );
+         }
+      }
+      else
+      {
+         bottom = new Vec2( v3x,v3y );
+         
+         if( v2x > v1x )
+         {
+            topRight = new Vec2( v2x,v2y );
+            topLeft = new Vec2( v1x,v1y );
+         }
+         else
+         {
+            topRight = new Vec2( v1x,v1y );
+            topLeft = new Vec2( v2x,v2y );
+         }
+      }
+      
+      double leftSlope = ( bottom.x - topLeft.x ) / ( bottom.y - topLeft.y );
+      double rightSlope =  ( bottom.x - topRight.x ) / ( bottom.y - topRight.y );
+      
+      for( ; topLeft.y <= bottom.y; topLeft.y++,topRight.y++ )
+      {
+         drawLine( (int)topLeft.x,(int)topLeft.y,(int)topRight.x,(int)topRight.y,c );
+         topLeft.x += leftSlope;
+         topRight.x += rightSlope;
+      }
    }
 }

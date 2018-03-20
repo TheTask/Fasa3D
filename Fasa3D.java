@@ -34,12 +34,11 @@ public class Fasa3D extends Application
    
       gfx.drawShape( points,Colors.BLACK );  
       
-      Vec2 a = new Vec2( -100,100 );
-      Vec2 b = new Vec2( 500,700 );
-      Vec2 d = new Vec2( -100,200 );
-      Vec2 c = new Vec2( 800,200 );
-      gfx.drawLine( a,b,Colors.RED );
-      gfx.drawLine( c,d,Colors.GREEN );
+      Vec2 a = new Vec2( 100,100 );
+      Vec2 b = new Vec2( 400,100 );
+      Vec2 c = new Vec2( -200,500 );
+      
+      gfx.drawFlatTopTriangle( c,b,a,Colors.BLACK );
       
       gfx.present();
    }
