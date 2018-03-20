@@ -81,15 +81,14 @@ public class Mat2
    public Mat2 inverse() throws Exception
    {
       double det = this.determinant();
+      
       if( det != 0 )
       {
          return this.adjoint().scale( 1/det );
       }
       else
       {
-         throw new Exception( "Matrix not invertable!" );
-         
+         throw new Exception( "Matrix not invertable!" ); 
       }
-   }
-      
+   }    
 }

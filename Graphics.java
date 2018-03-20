@@ -21,7 +21,6 @@ public class Graphics
    private int SCREEN_WIDTH = 600;
    private int SCREEN_HEIGHT = 600;
    
-   
    private Canvas          canvas; //pixel buffer
    private GraphicsContext gc;    
    private WritableImage   img; //layer
@@ -55,7 +54,6 @@ public class Graphics
       GridPane grid = new GridPane();
       grid.getChildren().addAll( this.canvas ); //put pixel buffer into layout
       
-
       Scene scene = new Scene( grid,SCREEN_WIDTH,SCREEN_HEIGHT );
       window.setScene( scene );
       window.show(); //present pixel buffer
@@ -64,7 +62,10 @@ public class Graphics
    
    private void putPixel( int x,int y,Color c )
    {
-      this.pw.setColor( (int)x,(int)y,c );     //accessing pixel by coord;
+      if( x >= 0 && x < SCREEN_WIDTH && y >= 0 && y < SCREEN_HEIGHT ) //clipping
+      {
+         this.pw.setColor( (int)x,(int)y,c );     //accessing pixel by coord;
+      }
    }
    
    public void present()
@@ -98,18 +99,11 @@ public class Graphics
             end = x1;
             ystart = y2;
          }
-         
-         int clippedStart = start >= 0 ? start : 0;  //clipping if we go outside of the screen
-         int clippedEnd = end <= SCREEN_WIDTH ? end : SCREEN_WIDTH;
 
-         for( int i = clippedStart; i < clippedEnd; i++ )
+         for( int i = start; i <= end; i++ )
          {
             currentOffset += m ; //slope incremental
-            
-            if( ystart + (int)currentOffset > 0 && ystart + (int)currentOffset < SCREEN_HEIGHT )
-            {
-               putPixel( i,ystart + (int)currentOffset,c );
-            }
+            putPixel( i,ystart + (int)currentOffset,c );
          }
       }
       else  //y dominant
@@ -130,18 +124,11 @@ public class Graphics
             xstart = x2;
          }
          
-      
-         int clippedStart = start >= 0 ? start : 0; //clipping
-         int clippedEnd = end <= SCREEN_HEIGHT ? end : SCREEN_HEIGHT;
-         
-         for( int i = clippedStart; i < clippedEnd; i++ )
+         for( int i = start; i <= end; i++ )
          {
             currentOffset += m ;
-            
-            if(  xstart + (int)currentOffset > 0 &&  xstart + (int)currentOffset < SCREEN_WIDTH )
-            {
-               putPixel( xstart + (int)currentOffset,i,c );
-            }
+            putPixel( xstart + (int)currentOffset,i,c );
+
          }
       }    
    }
@@ -169,7 +156,7 @@ public class Graphics
    {
       for( int i = 0; i < points.size() - 1; i++ )
       {
-         drawLine( points.get( i ),points.get( i + 1 ),c );
+         drawLine( points.get( i ),points.get( i + 1 ),c ); //draws line between 2 consecutive points
       }
       drawLine( points.get( points.size() - 1 ),points.get( 0 ),c ); //last to first
    }
