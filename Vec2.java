@@ -20,4 +20,10 @@ public class Vec2
       Vec2 result = new Vec2( this.x + rhs.x,this.y + rhs.y );
       return result;
    } 
+   
+   public Vec2 scale( double factor )
+   {
+      Vec2 result = new Vec2( this.x *= factor,this.y *= factor );
+      return result;
+   }
 }

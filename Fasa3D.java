@@ -18,28 +18,18 @@ public class Fasa3D extends Application
       Graphics gfx = new Graphics();    
       gfx.createWindow( primaryStage ); 
       
-
-      Vec2 v1 = new Vec2( 100,100 );
-      Vec2 v2 = new Vec2( 150,200 );
-      Vec2 v3 = new Vec2( 700,400 );
-      Vec2 v4 = new Vec2( 0,400 );
-      Vec2 v5 = new Vec2( 200,800 );
+      Space2D plane = new Space2D( gfx );
       
-      ArrayList< Vec2 > points = new ArrayList< Vec2 >();
-      points.add( v1 );
-      points.add( v2 );
-      points.add( v3 );
-      points.add( v4 );
-      points.add( v5 );
-   
-      gfx.drawShape( points,Colors.BLACK );  
+      Mat2 t = new Mat2( 1,0,0,1 );
+      plane.applyTransformation( t );
       
-      Vec2 a = new Vec2( 100,100 );
-      Vec2 b = new Vec2( 400,100 );
-      Vec2 c = new Vec2( -200,500 );
+      plane.drawSpace();
       
-      gfx.drawFlatTopTriangle( c,b,a,Colors.BLACK );
       
+      
+      //Space2D grid = new Space2D( gfx );
+      //grid.drawSpace();
+     
       gfx.present();
    }
 }

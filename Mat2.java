@@ -15,13 +15,13 @@ public class Mat2
    
    public Mat2( Vec2 v1,Vec2 v2 )
    {
-      this.x1 = v1.getX();
-      this.y1 = v1.getY();
-      this.x2 = v2.getX();
-      this.y2 = v2.getY();
+      this.x1 = v1.x;
+      this.y1 = v1.y;
+      this.x2 = v2.x;
+      this.y2 = v2.y;
    }
    
-   public static Mat2 Identity()
+   public static Mat2 getIdentity()
    {
       Mat2 result = new Mat2( 1,0,0,1 ); 
       return result;
@@ -90,5 +90,17 @@ public class Mat2
       {
          throw new Exception( "Matrix not invertable!" ); 
       }
+   }
+   
+   public Vec2 getIhat()
+   {
+      Vec2 iHat = new Vec2( this.x1,this.y1 );
+      return iHat;
    }    
+   
+   public Vec2 getJhat()
+   {
+      Vec2 jHat = new Vec2( this.x2,this.y2 );
+      return jHat;
+   }
 }

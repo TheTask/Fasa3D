@@ -18,8 +18,8 @@ import java.util.ArrayList;
 
 public class Graphics
 {
-   private int SCREEN_WIDTH = 600;
-   private int SCREEN_HEIGHT = 600;
+   protected int SCREEN_WIDTH = 600;
+   protected int SCREEN_HEIGHT = 600;
    
    private Canvas          canvas; //pixel buffer
    private GraphicsContext gc;    
@@ -73,7 +73,7 @@ public class Graphics
       this.gc.drawImage( img,0,0 ); //draw layer onto pixel buffer
    }
    
-   public void drawLine( int x1,int y1,int x2,int y2,Color c )
+   protected void drawLine( int x1,int y1,int x2,int y2,Color c )
    {
       int dx = x2 - x1;
       int dy = y2 - y1;
@@ -102,6 +102,7 @@ public class Graphics
 
          for( int i = start; i <= end; i++ )
          {
+                 
             currentOffset += m ; //slope incremental
             putPixel( i,ystart + (int)currentOffset,c );
          }
@@ -130,9 +131,10 @@ public class Graphics
             putPixel( xstart + (int)currentOffset,i,c );
 
          }
-      }    
+      } 
+              
    }
-   
+
    public void drawLine( Vec2 v1,Vec2 v2,Color c ) //overloaded to work with vec2
    {
       drawLine( (int)v1.x,(int)v1.y,(int)v2.x,(int)v2.y,c );
@@ -160,7 +162,7 @@ public class Graphics
       }
       drawLine( points.get( points.size() - 1 ),points.get( 0 ),c ); //last to first
    }
-   
+      
    public void drawFlatTopTriangle( Vec2 v1,Vec2 v2,Vec2 v3,Color c ) //mark as private after done testing
    {
       Vec2 topLeft;
@@ -221,14 +223,14 @@ public class Graphics
          }
       }
       
-      double leftSlope = ( bottom.x - topLeft.x ) / ( bottom.y - topLeft.y );
+      double leftSlope = ( bottom.x - topLeft.x ) / ( bottom.y - topLeft.y );  //slopes
       double rightSlope =  ( bottom.x - topRight.x ) / ( bottom.y - topRight.y );
       
-      for( ; topLeft.y <= bottom.y; topLeft.y++,topRight.y++ )
+      for( ; topLeft.y <= bottom.y; topLeft.y++,topRight.y++ ) //increments left and right start y values
       {
          drawLine( (int)topLeft.x,(int)topLeft.y,(int)topRight.x,(int)topRight.y,c );
-         topLeft.x += leftSlope;
-         topRight.x += rightSlope;
+         topLeft.x += leftSlope; //increments left start x value
+         topRight.x += rightSlope; //increments right start x value
       }
    }
 }
