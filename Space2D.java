@@ -29,7 +29,7 @@ public class Space2D extends Graphics
    public void drawSpace() //currently only works for eigen vectors and shear transformation, this approach is probably bad.
    {
       int scale = 1000; //scales basis vectors so lines fill the screen
-      int vectorLen = 25; //spacing between lines
+      int vectorLen = 50; //spacing between lines
       
       for( int i = 0; i < 10 * ( SCREEN_HEIGHT > SCREEN_WIDTH ? SCREEN_HEIGHT : SCREEN_WIDTH ); i += iHat.x * vectorLen ) //lines based on iHat
       {

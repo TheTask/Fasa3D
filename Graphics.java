@@ -135,7 +135,7 @@ public class Graphics
               
    }
 
-   public void drawLine( Vec2 v1,Vec2 v2,Color c ) //overloaded to work with vec2
+   protected void drawLine( Vec2 v1,Vec2 v2,Color c ) //overloaded to work with vec2
    {
       drawLine( (int)v1.x,(int)v1.y,(int)v2.x,(int)v2.y,c );
    }
@@ -231,6 +231,77 @@ public class Graphics
          drawLine( (int)topLeft.x,(int)topLeft.y,(int)topRight.x,(int)topRight.y,c );
          topLeft.x += leftSlope; //increments left start x value
          topRight.x += rightSlope; //increments right start x value
+      }
+   }
+
+   public void drawFlatBottomTriangle( Vec2 v1,Vec2 v2,Vec2 v3,Color c ) //mark as private after done testing
+   {
+      Vec2 bottomLeft;
+      Vec2 bottomRight;
+      Vec2 top;
+      
+      double v1x = v1.x;
+      double v1y = v1.y;
+      double v2x = v2.x;
+      double v2y = v2.y;
+      double v3x = v3.x;
+      double v3y = v3.y;
+      
+      
+      if( v1y < v2y && v1y < v3y ) //naive sorting approach
+      {
+         top = new Vec2( v1x,v1y );
+         
+         if( v2x > v3x )
+         {
+            bottomRight = new Vec2( v2x,v2y );
+            bottomLeft = new Vec2( v3x,v3y );
+         }
+         else
+         {
+            bottomRight = new Vec2( v3x,v3y );
+            bottomLeft = new Vec2( v2x,v2y );
+         }
+      }
+      else if( v2y < v1y && v2y < v3y )
+      {
+         top = new Vec2( v2x,v2y );
+         
+         if( v1x > v3x )
+         {
+            bottomRight = new Vec2( v1x,v1y );
+            bottomLeft = new Vec2( v3x,v3y );
+         }
+         else
+         {
+            bottomRight = new Vec2( v3x,v3y );
+            bottomLeft = new Vec2( v1x,v1y );
+         }
+      }
+      else
+      {
+         top = new Vec2( v3x,v3y );
+         
+         if( v2x > v1x )
+         {
+            bottomRight = new Vec2( v2x,v2y );
+            bottomLeft = new Vec2( v1x,v1y );
+         }
+         else
+         {
+            bottomRight = new Vec2( v1x,v1y );
+            bottomLeft = new Vec2( v2x,v2y );
+         }
+      }
+      
+      double leftSlope = ( top.x - bottomLeft.x ) / ( bottomLeft.y - top.y );  //slopes  
+      double rightSlope = ( top.x - bottomRight.x ) / ( bottomRight.y - top.y );
+      
+      for( ; top.y <= bottomLeft.y; bottomLeft.y--,bottomRight.y-- ) //decrements left and right start y values, going from base up to the top vertex
+      {
+         drawLine( (int)bottomLeft.x,(int)bottomLeft.y,(int)bottomRight.x,(int)bottomRight.y,c );
+         bottomLeft.x += leftSlope; //increments left start x value
+         bottomRight.x += rightSlope; //increments right start x value
       }
    }
 }

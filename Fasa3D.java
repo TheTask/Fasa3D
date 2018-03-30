@@ -17,18 +17,13 @@ public class Fasa3D extends Application
    {   
       Graphics gfx = new Graphics();    
       gfx.createWindow( primaryStage ); 
-      
-      Space2D plane = new Space2D( gfx );
-      
-      Mat2 t = new Mat2( 1,0,0,1 );
-      plane.applyTransformation( t );
-      
-      plane.drawSpace();
+
+      Vec2 v1 = new Vec2( 550,50 );
+      Vec2 v2 = new Vec2( 100,500 );
+      Vec2 v3 = new Vec2( 500,500 );
       
       
-      
-      //Space2D grid = new Space2D( gfx );
-      //grid.drawSpace();
+      gfx.drawFlatBottomTriangle( v1,v2,v3,Colors.BLACK );
      
       gfx.present();
    }
